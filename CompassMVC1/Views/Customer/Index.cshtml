@@ -1,0 +1,86 @@
+﻿@model List<CompassMVC1.Models.Domain.CustomerModel>
+@{
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+@*-------------Heading---------------------------*@
+<div class="bg-secondary bg-opacity-10 py-2 mb-3">
+    <div class="container">
+        <h1>CUSTOMERS</h1>
+    </div>
+</div>
+@*=================================================*@
+<div>
+    <input id="myInput" type="text" placeholder="Search..">
+</div>
+
+<div class="container py-5">
+    @*Modal = List<CompassMVC.Models.Domain.CustomerModal>*@
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>PhoneNumber</th>
+                    <th>Booking</th>
+                    <th>PassportNumber</th>
+                    <th>TicketNumber</th>
+                    <th>TicketFee</th>
+                    <th>Tax</th>
+                    <th>Commission</th>
+                    <th>Total</th>
+                    <th>RecordDate</th>
+
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @foreach (var customer in Model)
+                {
+                    <tr>
+                        <td>@customer.ID</td>
+                        <td>@customer.FirstName</td>
+                        <td>@customer.LastName</td>
+                        <td>@customer.PassportNumber</td>
+                        <td>@customer.Booking</td>
+                        <td>@customer.PassportNumber</td>
+                        <td>@customer.TicketNumber</td>
+                        <td>@customer.TicketFee</td>
+                        <td>@customer.Tax</td>
+                        <td>@customer.Commission</td>
+                        <td>@customer.Total</td>
+                        <td>@customer.RecordDate.ToString("dd-MM-yyyy")</td>
+
+
+                        <td>
+                            <a asp-area=""
+                               asp-controller="Customer"
+                               asp-action="Edit"
+                               asp-route-id="@customer.ID">Edit</a>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No Customer Found</p>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+

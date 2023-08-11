@@ -1,0 +1,115 @@
+﻿@model CompassMVC1.Models.UpdateCustomerModel
+@{
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Update Customer</h1>
+    </div>
+</div>
+
+
+
+<div class="container py-5">
+    <form method="post" action="Edit">
+        <div class="mb-3">
+            <label class="form-label">ID</label>
+            <input type="number" class="form-control" id="id" asp-for="ID" readonly />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" asp-for="FirstName" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" asp-for="LastName" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="phoneNumber" pattern="[0-9]{1,5}" asp-for="PhoneNumber" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Booking</label>
+            <input type="text" class="form-control" id="booking" pattern="[0-9]{1,5}" asp-for="Booking" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Passport</label>
+            <input type="text" class="form-control" id="passportNumber" asp-for="PassportNumber" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Ticket Number</label>
+            <input type="text" class="form-control" id="ticketNumber" pattern="[0-9]{1,5}" asp-for="TicketNumber" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Ticket Fee</label>
+            <input type="text" class="form-control" id="ticketFee" pattern="^(?!^$)\d*[0-9]?(?:\.[0-9]{1,2})?$" style="text-align: right" asp-for="TicketFee" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tax</label>
+            <input type="text" class="form-control" id="tax" pattern="^(?!^$)\d*[0-9]?(?:\.[0-9]{1,2})?$" style="text-align: right" asp-for="Tax" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Commission</label>
+            <input type="text" class="form-control amount" id="commission" pattern="^(?!^$)\d*[0-9]?(?:\.[0-9]{1,2})?$" style="text-align: right" asp-for="Commission" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Total</label>
+            <input type="text" class="form-control" id="total" pattern="^(?!^$)\d*[0-9]?(?:\.[0-9]{1,2})?$" style="text-align: right" asp-for="Total" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Record Date</label>
+            <input type="date" class="form-control" id="recordDate" asp-for="RecordDate" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Note</label>
+            <textarea rows="4" cols="50" class="form-control" id="note" asp-for="Note"></textarea>
+        </div>
+
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-danger" asp-action="Delete" asp-controller="Customer">Delete</button>
+        </div>
+
+
+    </form>
+
+</div>
+
+<script>
+
+    $('#ticketFee,#tax,#commission').keyup(function () {
+
+        var num1 = (!$("#ticketFee").val()) ? 0.00 : parseFloat($("#ticketFee").val())
+        var num2 = (!$("#tax").val()) ? 0.00 : parseFloat($("#tax").val())
+        var num3 = (!$("#commission").val()) ? 0.00 : parseFloat($("#commission").val())
+        var result = (num1 + num2 + num3);
+
+        $("#total").val(result.toFixed(2));
+    });
+
+    $("#ticketFee,#tax,#commission,#total").blur(function () {
+        this.value = parseFloat(this.value).toFixed(2);
+    });
+
+
+
+</script>
+
+
+
+
+
